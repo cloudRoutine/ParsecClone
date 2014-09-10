@@ -3,6 +3,7 @@
 open System
 open System.IO
 open System.Reflection
+open ParsecClone.CombinatorBase.ErrorMessage
 
 [<AutoOpen>]
 module Combinator =      
@@ -15,7 +16,32 @@ module Combinator =
 
     type State<'StateType, 'ConsumeType, 'UserState> = IStreamP<'StateType, 'ConsumeType, 'UserState>
 
-    type Reply<'Return, 'StateType, 'ConsumeType, 'UserState> = 'Return option * State<'StateType, 'ConsumeType, 'UserState>
+//    type Reply<'Return, 'StateType, 'ConsumeType, 'UserState> = 'Return option * State<'StateType, 'ConsumeType, 'UserState>
+    type ReplyStatus =
+        | Ok
+        | Error
+        | FatalError
+
+
+    type Reply<'Return, 'StateType, 'ConsumeType, 'UserState> = 
+        {
+            Result  : 'Return Option
+            State   : State<'StateType, 'ConsumeType, 'UserState>
+            Error   : ErrorMessage list
+            Status  : ReplyStatus
+        }
+
+//    [<Struct>]
+//    type Reply<'Return, 'StateType, 'ConsumeType, 'UserState> ( result:'Return Option, 
+//                                                                state :State<'StateType,'ConsumeType, 'UserState>,
+//                                                                error :ErrorMessage list,
+//                                                                status:ReplyStatus) = 
+//            member this.Result  = result  
+//            member this.State   = state   
+//            member this.Error   = error   
+//            member this.Status  = status  
+        
+
 
     type Parser<'Return, 'StateType, 'ConsumeType, 'UserState> = State<'StateType, 'ConsumeType, 'UserState> -> Reply<'Return, 'StateType, 'ConsumeType, 'UserState>  
         

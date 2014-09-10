@@ -49,6 +49,7 @@
     <Compile Include="ByteUtils.fs" />
     <Compile Include="IStreamP.fs" />
     <Compile Include="Combinator.fs" />
+    <Compile Include="ErrorMessage.fs" />
     <Compile Include="StringStream.fs" />
     <Compile Include="BitStream.fs" />
     <Compile Include="BinStream.fs" />
